@@ -1,5 +1,7 @@
 ///<reference path="../../node_modules/angular2/typings/browser.d.ts"/>
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var MyService;
     return {
         setters:[],
@@ -18,7 +20,7 @@ System.register([], function(exports_1) {
                     return result;
                 };
                 return MyService;
-            })();
+            }());
             exports_1("MyService", MyService);
         }
     }

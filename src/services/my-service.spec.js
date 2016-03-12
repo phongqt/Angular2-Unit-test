@@ -1,5 +1,7 @@
 /// <reference path="../../typings/main/ambient/jasmine/jasmine.d.ts" />
-System.register(['angular2/testing', "./my-service"], function(exports_1) {
+System.register(['angular2/testing', "./my-service"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var testing_1, my_service_1;
     return {
         setters:[
