@@ -26,7 +26,7 @@ namespace Blog.Controllers
             List<Article> articles = new List<Article>();
             try
             {
-                articles = dbContext.Articles.OrderBy(x => x.Created.Value).Take(limit).Skip(page).ToList();
+                articles = dbContext.Articles.OrderByDescending(x => x.Created.Value).Take(limit).Skip(page).ToList();
                 _result.data = articles;
                 _result.code = 200;
                 _result.message = "Success";
