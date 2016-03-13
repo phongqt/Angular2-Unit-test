@@ -13,5 +13,6 @@ namespace Blog.Models
         public string _Content { get; set; }
         public Nullable<DateTime> Created { get; set; }
         public Nullable<int> UserId { get; set; }
+        public string Image { get; set; }
     }
 }
