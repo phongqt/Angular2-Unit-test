@@ -31,8 +31,8 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/Observable', '../../cor
                 function AdminUserService(http) {
                     this.http = http;
                 }
-                AdminUserService.prototype.login = function () {
-                    return this.http.get(config_1.PublishVar.apiUrl + 'user/login?username=1&password=10')
+                AdminUserService.prototype.login = function (userName, passWord) {
+                    return this.http.get(config_1.PublishVar.apiUrl + 'user/login?username=' + userName + '&password=' + passWord)
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };

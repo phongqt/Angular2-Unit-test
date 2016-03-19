@@ -28,12 +28,12 @@ namespace Blog.Controllers
             {
                 articles = dbContext.Articles.OrderByDescending(x => x.Created.Value).Take(limit).Skip(page).ToList();
                 _result.data = articles;
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }            
             return _result;
@@ -49,12 +49,12 @@ namespace Blog.Controllers
             {
                 article = dbContext.Articles.FirstOrDefault(x => x.Id == id);
                 _result.data = article;
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -75,12 +75,12 @@ namespace Blog.Controllers
                 article.Image = image;
                 dbContext.Articles.Add(article);
                 dbContext.SaveChanges();
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             } 
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -103,18 +103,18 @@ namespace Blog.Controllers
                     article.Image = image;
                     dbContext.Articles.Add(article);
                     dbContext.SaveChanges();
-                    _result.code = 200;
+                    _result.success = true;
                     _result.message = "Success";
                 }
                 else
                 {
-                    _result.code = 500;
+                    _result.success = false;
                     _result.message = "Article does not exitst.";
                 }
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -133,18 +133,18 @@ namespace Blog.Controllers
                 {
                     dbContext.Articles.Remove(article);
                     dbContext.SaveChanges();
-                    _result.code = 200;
+                    _result.success = true;
                     _result.message = "Success";
                 }
                 else
                 {
-                    _result.code = 500;
+                    _result.success = false;
                     _result.message = "Article does not exitst.";
                 }
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;

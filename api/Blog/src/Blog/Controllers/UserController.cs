@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.AspNet.Mvc;
 using Blog.Models;
 using Microsoft.AspNet.Cors;
+using Microsoft.AspNet.Http;
+using Blog.Services;
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Blog.Controllers
@@ -27,12 +29,12 @@ namespace Blog.Controllers
             {
                 users = dbContext.Users.OrderByDescending(x => x.Id).Take(limit).Skip(page).ToList();
                 _result.data = users;
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -48,12 +50,12 @@ namespace Blog.Controllers
             {
                 user = dbContext.Users.FirstOrDefault(x => x.Id == id);
                 _result.data = user;
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -84,18 +86,18 @@ namespace Blog.Controllers
                 {
                     dbContext.Users.Remove(user);
                     dbContext.SaveChanges();
-                    _result.code = 200;
+                    _result.success = true;
                     _result.message = "Success";
                 }
                 else
                 {
-                    _result.code = 500;
+                    _result.success = false;
                     _result.message = "User does not exitst.";
                 }
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -112,20 +114,21 @@ namespace Blog.Controllers
                 user = dbContext.Users.FirstOrDefault(x => x.UserName == username && x.Password == password);
                 if (user != null)
                 {
-                    _result.code = 200;
+                    _result.success = true;
                     user.Password = null;
                     _result.data = user;
-                    _result.message = "Success";
+                    _result.message = "Success";                    
+                    HttpContext.Session.SetObjectAsJson("Test", user);
                 }
                 else
                 {
-                    _result.code = 500;
+                    _result.success = false;
                     _result.message = "Incorrect username or password";
                 }
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;

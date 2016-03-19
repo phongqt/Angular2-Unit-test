@@ -21,9 +21,12 @@
                                 <h6>Sign In</h6>
                                 <input class="form-control" type="text" placeholder="User name" [(ngModel)]="user.UserName" required >
                                 <input class="form-control" type="password" placeholder="Password" [(ngModel)]="user.Password" required>
+                                <div *ngIf="errorMessage" class="alert alert-danger">
+                                    {{errorMessage}}
+                                </div>
                                 <div class="action">
                                     <button type="submit" class="btn btn-primary signup"
-        [disabled]="!loginForm.form.valid">Submit</button>
+        [disabled]="isLoading">Submit</button>
                                 </div>                
                             </div>
                         </div>

@@ -27,12 +27,12 @@ namespace Blog.Controllers
             {
                 comments = dbContext.Comments.Where(x=>x.ArticleId == id).ToList();
                 _result.data = comments;
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -52,12 +52,12 @@ namespace Blog.Controllers
                 dbContext.Comments.Add(comment);
                 dbContext.SaveChanges();
                 _result.data = comment;
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -82,18 +82,18 @@ namespace Blog.Controllers
                 {
                     dbContext.Comments.Remove(comment);
                     dbContext.SaveChanges();
-                    _result.code = 200;
+                    _result.success = true;
                     _result.message = "Success";
                 }
                 else
                 {
-                    _result.code = 500;
+                    _result.success = false;
                     _result.message = "Comment does not exitst.";
                 }
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;

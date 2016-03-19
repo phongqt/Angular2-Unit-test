@@ -8,8 +8,8 @@ import {PublishVar} from '../../cores/config';
 export class AdminUserService {
     constructor(private http:Http){}
     private user:User;
-    login() {
-        return this.http.get(PublishVar.apiUrl + 'user/login?username=1&password=10')
+    login(userName:string, passWord:string) {
+        return this.http.get(PublishVar.apiUrl + 'user/login?username=' + userName + '&password=' + passWord)
                     .map(res => res.json())
                     .catch(this.handleError);
     }

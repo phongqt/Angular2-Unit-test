@@ -29,6 +29,8 @@ namespace Blog
         {
             // Add framework services.
             services.AddMvc();
+            services.AddCaching();
+            services.AddSession();
             var connection = @"Server=.\sqlexpress1;Database=Blog;Trusted_Connection=True;";
 
             services.AddEntityFramework()
@@ -46,7 +48,7 @@ namespace Blog
             app.UseIISPlatformHandler();
 
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseMvc();
             app.UseCors("AllowAll");
         }

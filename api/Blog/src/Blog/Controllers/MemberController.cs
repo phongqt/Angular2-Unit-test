@@ -27,12 +27,12 @@ namespace Blog.Controllers
             {
                 members = dbContext.Members.OrderByDescending(x => x.Id).Take(limit).Skip(page).ToList();
                 _result.data = members;
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -48,12 +48,12 @@ namespace Blog.Controllers
             {
                 member = dbContext.Members.FirstOrDefault(x => x.Id == id);
                 _result.data = member;
-                _result.code = 200;
+                _result.success = true;
                 _result.message = "Success";
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -84,18 +84,18 @@ namespace Blog.Controllers
                 {
                     dbContext.Members.Remove(member);
                     dbContext.SaveChanges();
-                    _result.code = 200;
+                    _result.success = true;
                     _result.message = "Success";
                 }
                 else
                 {
-                    _result.code = 500;
+                    _result.success = false;
                     _result.message = "Member does not exitst.";
                 }
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
@@ -109,18 +109,18 @@ namespace Blog.Controllers
                 member = dbContext.Members.FirstOrDefault(x => x.UserName == username && x.Password == password);
                 if (member != null)
                 {
-                    _result.code = 200;
+                    _result.success = true;
                     _result.message = "Success";
                 }
                 else
                 {
-                    _result.code = 500;
+                    _result.success = false;
                     _result.message = "Incorrect username or password";
                 }
             }
             catch (Exception ex)
             {
-                _result.code = 500;
+                _result.success = false;
                 _result.message = ex.ToString();
             }
             return _result;
