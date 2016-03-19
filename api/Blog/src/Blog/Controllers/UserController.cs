@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Blog.Models;
-
+using Microsoft.AspNet.Cors;
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Blog.Controllers
 {
-    [Route("api/[controller]")]
+    [EnableCors("AllowAll")]
+    [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
         private BloggingContext dbContext = new BloggingContext();
@@ -102,6 +102,7 @@ namespace Blog.Controllers
         }
 
         //Login
+        [HttpGet]
         public Result Login(string username, string password)
         {
             Result _result = new Result();
@@ -112,6 +113,8 @@ namespace Blog.Controllers
                 if (user != null)
                 {
                     _result.code = 200;
+                    user.Password = null;
+                    _result.data = user;
                     _result.message = "Success";
                 }
                 else

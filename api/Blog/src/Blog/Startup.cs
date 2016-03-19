@@ -34,6 +34,7 @@ namespace Blog
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +48,7 @@ namespace Blog
             app.UseStaticFiles();
 
             app.UseMvc();
+            app.UseCors("AllowAll");
         }
 
         // Entry point for the application.
