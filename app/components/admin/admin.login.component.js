@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../services/admin/admin.user.service', '../../cores/auth-helper'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../services/admin/admin.user.service', 'angular2-cookie/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../services/admin/admin
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, admin_user_service_1, auth_helper_1;
+    var core_1, router_1, admin_user_service_1, core_2;
     var AdminLoginComponent;
     return {
         setters:[
@@ -23,26 +23,34 @@ System.register(['angular2/core', 'angular2/router', '../../services/admin/admin
             function (admin_user_service_1_1) {
                 admin_user_service_1 = admin_user_service_1_1;
             },
-            function (auth_helper_1_1) {
-                auth_helper_1 = auth_helper_1_1;
+            function (core_2_1) {
+                core_2 = core_2_1;
             }],
         execute: function() {
             AdminLoginComponent = (function () {
-                function AdminLoginComponent(_adminUserService, _router) {
+                function AdminLoginComponent(_adminUserService, _router, _cookieService) {
                     this._adminUserService = _adminUserService;
                     this._router = _router;
+                    this._cookieService = _cookieService;
                     this.user = {
                         UserName: '',
                         Password: ''
                     };
                     this.isLoading = false;
                 }
+                AdminLoginComponent.prototype.ngOnInit = function () {
+                    var cookieSotote = this._cookieService.getObject('blog-admin');
+                    if (cookieSotote) {
+                        var link = ['Board'];
+                        this._router.navigate(link);
+                    }
+                };
                 AdminLoginComponent.prototype.Login = function () {
                     var _this = this;
                     this.isLoading = true;
                     this._adminUserService.login(this.user.UserName, this.user.Password).subscribe(function (res) {
                         if (res.success) {
-                            auth_helper_1.AuthHelper.setCookieStore('blog-admin', res.data);
+                            _this._cookieService.putObject('blog-admin', res.data);
                             var link = ['Board'];
                             _this._router.navigate(link);
                         }
@@ -51,7 +59,6 @@ System.register(['angular2/core', 'angular2/router', '../../services/admin/admin
                         }
                         _this.isLoading = false;
                     }, function (error) {
-                        auth_helper_1.AuthHelper.setCookieStore('blog-admin', 11);
                         _this.errorMessage = error;
                         _this.isLoading = false;
                     });
@@ -60,9 +67,9 @@ System.register(['angular2/core', 'angular2/router', '../../services/admin/admin
                     core_1.Component({
                         selector: 'admin-login',
                         templateUrl: 'app/layout/admin/login.html',
-                        providers: [admin_user_service_1.AdminUserService]
+                        providers: [admin_user_service_1.AdminUserService, core_2.CookieService]
                     }), 
-                    __metadata('design:paramtypes', [admin_user_service_1.AdminUserService, router_1.Router])
+                    __metadata('design:paramtypes', [admin_user_service_1.AdminUserService, router_1.Router, core_2.CookieService])
                 ], AdminLoginComponent);
                 return AdminLoginComponent;
             }());

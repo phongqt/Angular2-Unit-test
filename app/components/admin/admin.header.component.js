@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2-cookie/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, router_2, core_2;
     var AdminHeaderComponent;
     return {
         setters:[
@@ -19,18 +19,30 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+                router_2 = router_1_1;
+            },
+            function (core_2_1) {
+                core_2 = core_2_1;
             }],
         execute: function() {
             AdminHeaderComponent = (function () {
-                function AdminHeaderComponent() {
+                function AdminHeaderComponent(_router, _cookieService) {
+                    this._router = _router;
+                    this._cookieService = _cookieService;
                 }
+                AdminHeaderComponent.prototype.Logout = function () {
+                    this._cookieService.remove('blog-admin');
+                    var link = ['Login'];
+                    this._router.navigate(link);
+                };
                 AdminHeaderComponent = __decorate([
                     core_1.Component({
                         selector: "admin-header",
                         templateUrl: 'app/layout/admin/admin.header.html',
-                        directives: [router_1.RouterOutlet, router_1.ROUTER_DIRECTIVES],
+                        directives: [router_2.RouterOutlet, router_2.ROUTER_DIRECTIVES],
+                        providers: [core_2.CookieService]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Router, core_2.CookieService])
                 ], AdminHeaderComponent);
                 return AdminHeaderComponent;
             }());

@@ -1,0 +1,7 @@
+.paging-cus{
+	padding: 7px 10px!important;
+	float: right!important;
+}
+.paging-cus:first-child {
+	margin-left: 10px;
+}
