@@ -45,7 +45,14 @@ System.register(["angular2/core", "../../services/article.service", 'angular2/ro
                 ;
                 AdminArticleComponent.prototype.getNews = function () {
                     var _this = this;
-                    this._articleService.getArticles(this.page, this.limit).then(function (articles) { return _this.articles = articles; });
+                    this._articleService.getArticles(this.page, this.limit).subscribe(function (res) {
+                        if (res.success) {
+                            _this.articles = res.data.data;
+                            _this.totalPage = res.data.totalPages;
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
                 };
                 AdminArticleComponent.prototype.ngOnInit = function () {
                     this.getNews();
@@ -53,7 +60,7 @@ System.register(["angular2/core", "../../services/article.service", 'angular2/ro
                 AdminArticleComponent.prototype.gotoNext = function () {
                     this.isDisabledPrevious = false;
                     this.page++;
-                    this.isDisabledNext = this.page * this.limit >= 50;
+                    this.isDisabledNext = this.page == this.totalPage;
                     this.getNews();
                 };
                 AdminArticleComponent.prototype.gotoPrevious = function () {
@@ -63,8 +70,21 @@ System.register(["angular2/core", "../../services/article.service", 'angular2/ro
                     this.getNews();
                 };
                 AdminArticleComponent.prototype.gotoArticleDetail = function (article) {
-                    var link = ['ArticleDetail', { id: article.id }];
+                    var link = ['ArticleDetail', { id: article.Id }];
                     this._router.navigate(link);
+                };
+                AdminArticleComponent.prototype.deleteArticle = function (article) {
+                    var _this = this;
+                    var r = confirm("Do you want to delete this article");
+                    if (r == true) {
+                        this._articleService.deleteArticle(article.Id).subscribe(function (res) {
+                            if (res.success) {
+                                _this.getNews();
+                            }
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    }
                 };
                 AdminArticleComponent = __decorate([
                     core_1.Component({

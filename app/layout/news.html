@@ -19,15 +19,15 @@
             <div class="post-preview" *ngFor="#article of articles">
                 <a (click) = "gotoArticleDetail(article)" href="javascript:void(0)">
                     <h2 class="post-title">
-                        {{article.title | capitalize |truncate:30:' '}}
+                        {{article.Title | capitalize |truncate:30:' '}}
                     </h2>
                 </a>
                 <a>
                     <h3 class="post-subtitle">
-                        {{article.description | capitalize |truncate:100:'...'}}
+                        {{article.Description | capitalize |truncate:100:'...'}}
                     </h3>
                 </a>
-                <p class="post-meta">Posted by <a href="javascript:void(0)">{{article.author | capitalizeFirstLetter}}</a> on {{article.created}}</p>
+                <p class="post-meta">Posted by <a href="javascript:void(0)">{{article.Author | capitalizeFirstLetter}}</a> on {{article.Created}}</p>
             </div>
             <hr>
             <!-- Pager -->

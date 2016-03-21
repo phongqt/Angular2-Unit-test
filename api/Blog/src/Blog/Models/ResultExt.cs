@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Blog.Models
+{
+    public class ResultExt
+    {
+        public dynamic data { get; set; }
+        public int totalPages { get; set; }
+    }
+}

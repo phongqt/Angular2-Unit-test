@@ -17,15 +17,15 @@
                 <tbody>
                 <tr *ngFor="#article of articles; #i = index">
                     <td>{{i+1}}</td>
-                    <td>{{article.title | capitalize |truncate:30:' '}}Mark</td>
-                    <td>{{article.author | capitalizeFirstLetter}}</td>
-                    <td>{{article.created}}</td>
+                    <td>{{article.Title | capitalize |truncate:30:' '}}Mark</td>
+                    <td>{{article.Author | capitalizeFirstLetter}}</td>
+                    <td>{{article.Created}}</td>
                     <td>
                         <a href="javascript:void(0)" data-rel="reload">
                             <i class="glyphicon glyphicon-edit"></i>
                         </a>
                         &nbsp;
-                        <a href="javascript:void(0)" data-rel="reload">
+                        <a href="javascript:void(0)" data-rel="reload" (click)="deleteArticle(article)">
                             <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </td>

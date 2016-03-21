@@ -5,11 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
 using Blog.Models;
-
+using Microsoft.AspNet.Cors;
+using Microsoft.AspNet.Http;
+using Blog.Services;
+using System.Linq;
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Blog.Controllers
 {
+    [EnableCors("AllowAll")]
     [Route("api/[controller]")]
     public class ArticleController : Controller
     {
@@ -26,8 +30,14 @@ namespace Blog.Controllers
             List<Article> articles = new List<Article>();
             try
             {
-                articles = dbContext.Articles.OrderByDescending(x => x.Created.Value).Take(limit).Skip(page).ToList();
-                _result.data = articles;
+                page--;
+                ResultExt resultExt = new ResultExt();
+                resultExt.totalPages = dbContext.Articles.Count() / limit + 1;
+                var articleList = (from _article in dbContext.Articles.OrderByDescending(x=>x.Created).Skip(page * limit).Take(limit)
+                                   join _user in dbContext.Users on _article.UserId.Value equals _user.Id
+                                   select new ArticleExt{ Id = _article.Id, Title = _article.Title, Description= _article.Description, Image = _article.Image, Created = _article.Created, _Content = _article._Content, Author = _user.FirstName + ' ' + _user.LastName});
+                resultExt.data = articleList;
+                _result.data = resultExt;
                 _result.success = true;
                 _result.message = "Success";
             }
@@ -43,11 +53,14 @@ namespace Blog.Controllers
         [HttpGet("{id}")]
         public Result Get(int id)
         {
-            Result _result = new Result();
-            Article article = new Article();
+            Result _result = new Result();            
             try
             {
-                article = dbContext.Articles.FirstOrDefault(x => x.Id == id);
+                //article = dbContext.Articles.FirstOrDefault(x => x.Id == id);
+                var article = (from _article in dbContext.Articles
+                 join _user in dbContext.Users on _article.UserId.Value equals _user.Id
+                 where _article.Id == id
+                 select new ArticleExt { Id = _article.Id, Title = _article.Title, Description = _article.Description, Image = _article.Image, Created = _article.Created, _Content = _article._Content, Author = _user.FirstName + ' ' + _user.LastName }).FirstOrDefault();
                 _result.data = article;
                 _result.success = true;
                 _result.message = "Success";

@@ -1,9 +1,10 @@
 export interface Article{
-    id: number;
-    title: string;
-    description: string;
-    content: string;
-    created: string;
-    image: string;
-    author: string;    
+    Id: number;
+    Title: string;
+    Description: string;
+    _Content: string;
+    Created: string;
+    Image: string;
+    Author: string;    
+    // UserId: string;
 }

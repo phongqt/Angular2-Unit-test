@@ -1,10 +1,10 @@
-    <header class="intro-header" style="background-image: url('{{article.image}}')" *ngIf="article">
+    <header class="intro-header" style="background-image: url('{{article.Image}}')" *ngIf="article">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>{{article.title | capitalize}}</h1>
-                        <span class="meta">Posted by <a href="javascript:void(0)">{{article.author | capitalizeFirstLetter}}</a> on {{article.created}}</span>
+                        <h1>{{article.Title | capitalize}}</h1>
+                        <span class="meta">Posted by <a href="javascript:void(0)">{{article.Author | capitalizeFirstLetter}}</a> on {{article.created}}</span>
                     </div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
         <div class="container" *ngIf="article">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    {{article.content|capitalize}}
+                    <div [innerHTML]="article._Content"></div>
                 </div>
             </div>
         </div>

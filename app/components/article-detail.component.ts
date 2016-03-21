@@ -16,8 +16,15 @@ import {CapitalizePipe} from '../pipes/capitalize.pipe';
      article: Article;
      constructor(private _articleService:ArticleService,
      private _routeParams: RouteParams) {}
-     getArticleDetail(id:number) {
-          this._articleService.getArticleDetail(id).then(Article => this.article = Article);
+     getArticleDetail(id:number) {          
+           this._articleService.getArticleDetail(id).subscribe(res => {
+            if(res.success) {      
+                this.article = <Article>res.data;               
+            } 
+        },
+        error =>  {            
+            console.log(<any>error);
+        });
      }
      ngOnInit() {
          // '+' covert string to number because parameter always strings

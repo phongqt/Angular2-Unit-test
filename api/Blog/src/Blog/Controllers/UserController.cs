@@ -27,7 +27,8 @@ namespace Blog.Controllers
             List<User> users = new List<User>();
             try
             {
-                users = dbContext.Users.OrderByDescending(x => x.Id).Take(limit).Skip(page).ToList();
+                page--;
+                users = dbContext.Users.OrderByDescending(x => x.Id).Skip(page*limit).Take(limit).ToList();
                 _result.data = users;
                 _result.success = true;
                 _result.message = "Success";

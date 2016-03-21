@@ -25,7 +25,8 @@ namespace Blog.Controllers
             List<Member> members = new List<Member>();
             try
             {
-                members = dbContext.Members.OrderByDescending(x => x.Id).Take(limit).Skip(page).ToList();
+                page--;
+                members = dbContext.Members.OrderByDescending(x => x.Id).Skip(page*limit).Take(limit).ToList();
                 _result.data = members;
                 _result.success = true;
                 _result.message = "Success";

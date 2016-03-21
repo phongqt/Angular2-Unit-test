@@ -45,7 +45,15 @@ System.register(["angular2/core", "../services/article.service", 'angular2/route
                 ;
                 NewsComponent.prototype.getNews = function () {
                     var _this = this;
-                    this._articleService.getArticles(this.page, this.limit).then(function (articles) { return _this.articles = articles; });
+                    // this._articleService.getArticles(this.page, this.limit).then(articles => this.articles = articles);
+                    this._articleService.getArticles(this.page, this.limit).subscribe(function (res) {
+                        if (res.success) {
+                            _this.articles = res.data.data;
+                            _this.totalPage = res.data.totalPages;
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
                 };
                 NewsComponent.prototype.ngOnInit = function () {
                     this.getNews();
@@ -53,7 +61,7 @@ System.register(["angular2/core", "../services/article.service", 'angular2/route
                 NewsComponent.prototype.gotoNext = function () {
                     this.isDisabledPrevious = false;
                     this.page++;
-                    this.isDisabledNext = this.page * this.limit >= 50;
+                    this.isDisabledNext = this.page == this.totalPage;
                     this.getNews();
                 };
                 NewsComponent.prototype.gotoPrevious = function () {
@@ -63,7 +71,7 @@ System.register(["angular2/core", "../services/article.service", 'angular2/route
                     this.getNews();
                 };
                 NewsComponent.prototype.gotoArticleDetail = function (article) {
-                    var link = ['ArticleDetail', { id: article.id }];
+                    var link = ['ArticleDetail', { id: article.Id }];
                     this._router.navigate(link);
                 };
                 NewsComponent = __decorate([

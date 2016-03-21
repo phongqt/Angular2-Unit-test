@@ -37,7 +37,6 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/Observable', '../../cor
                         .catch(this.handleError);
                 };
                 AdminUserService.prototype.handleError = function (error) {
-                    console.error(error);
                     return Observable_1.Observable.throw(error.json().error || 'Server error');
                 };
                 AdminUserService = __decorate([

@@ -40,7 +40,13 @@ System.register(["angular2/core", "angular2/router", "../services/article.servic
                 }
                 ArticleDetailComponent.prototype.getArticleDetail = function (id) {
                     var _this = this;
-                    this._articleService.getArticleDetail(id).then(function (Article) { return _this.article = Article; });
+                    this._articleService.getArticleDetail(id).subscribe(function (res) {
+                        if (res.success) {
+                            _this.article = res.data;
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
                 };
                 ArticleDetailComponent.prototype.ngOnInit = function () {
                     // '+' covert string to number because parameter always strings

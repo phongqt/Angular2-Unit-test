@@ -16,11 +16,21 @@ export class AdminArticleComponent implements OnInit{
     private limit:number = 5;
     private isDisabledPrevious:boolean = true;
     private isDisabledNext:boolean = false;
+    private totalPage: number;
+    
     constructor(private _articleService: ArticleService,
     private _router: Router){};
     
     getNews() {
-        this._articleService.getArticles(this.page, this.limit).then(articles => this.articles = articles);
+         this._articleService.getArticles(this.page, this.limit).subscribe(res => {
+            if(res.success) {      
+                this.articles = <Article[]>res.data.data;
+                this.totalPage = res.data.totalPages;
+            } 
+        },
+        error =>  {            
+            console.log(<any>error);
+        });
     }
     ngOnInit() {
         this.getNews();
@@ -28,7 +38,7 @@ export class AdminArticleComponent implements OnInit{
     gotoNext() {        
         this.isDisabledPrevious = false;
         this.page ++;
-        this.isDisabledNext = this.page * this.limit >=50;
+        this.isDisabledNext =  this.page == this.totalPage;
         this.getNews();
     }
     gotoPrevious() {        
@@ -38,7 +48,20 @@ export class AdminArticleComponent implements OnInit{
         this.getNews();
     }
     gotoArticleDetail(article: Article) {
-        let link = ['ArticleDetail', { id: article.id }];
+        let link = ['ArticleDetail', { id: article.Id }];
         this._router.navigate(link);
+    }
+    deleteArticle(article) {
+        var r = confirm("Do you want to delete this article");
+        if (r == true) {
+            this._articleService.deleteArticle(article.Id).subscribe(res => {
+                if(res.success) {      
+                    this.getNews();
+                } 
+                },
+            error =>  {            
+                console.log(<any>error);
+            });
+        }
     }
 }
