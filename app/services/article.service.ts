@@ -53,4 +53,13 @@ export class ArticleService {
         .map(res => res.json())
         .catch(this.handleError);   
   }
+  postArticle(data:string) {
+    //let body = JSON.stringify({ data });
+    var headers = new Headers();
+  headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(PublishVar.apiUrl + 'article/',data, options)
+        .map(res => res.json())
+        .catch(this.handleError);   
+  }
 }

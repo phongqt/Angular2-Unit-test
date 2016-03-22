@@ -30,7 +30,10 @@ namespace Blog
             // Add framework services.
             services.AddMvc();
             services.AddCaching();
-            services.AddSession();
+            services.AddSession(o =>
+            {
+                o.IdleTimeout = TimeSpan.FromSeconds(30);
+            });
             var connection = @"Server=.\sqlexpress1;Database=Blog;Trusted_Connection=True;";
 
             services.AddEntityFramework()

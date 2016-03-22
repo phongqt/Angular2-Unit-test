@@ -119,7 +119,7 @@ namespace Blog.Controllers
                     user.Password = null;
                     _result.data = user;
                     _result.message = "Success";                    
-                    HttpContext.Session.SetObjectAsJson("Test", user);
+                    HttpContext.Session.SetObjectAsJson("admin", user);
                 }
                 else
                 {

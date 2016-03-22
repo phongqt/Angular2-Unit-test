@@ -5,6 +5,7 @@ import {AdminHeaderComponent} from '../admin/admin.header.component';
 import {AdminMenuLeftComponent} from '../admin/admin.menuleft.component';
 import {AdminFooterComponent} from '../admin/admin.footer.component';
 import {AdminArticleComponent} from '../admin/admin.article.component';
+import {AdminAddArticleComponent} from '../admin/admin.addarticle.component';
 import {CookieService} from 'angular2-cookie/core'; 
 @Component({
     selector:'admin-my-app',
@@ -14,10 +15,15 @@ import {CookieService} from 'angular2-cookie/core';
 })
 @RouteConfig([
     {
-        path:'/Article',
+        path:'/article',
         name: 'AdminArticle',
         component: AdminArticleComponent,
         useAsDefault: true
+    },
+    {
+        path:'/article/addnew',
+        name: 'AdminAddArticle',
+        component: AdminAddArticleComponent
     },
     
 ])

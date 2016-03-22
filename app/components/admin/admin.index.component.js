@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../admin/admin.header.component', '../admin/admin.menuleft.component', '../admin/admin.footer.component', '../admin/admin.article.component', 'angular2-cookie/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../admin/admin.header.component', '../admin/admin.menuleft.component', '../admin/admin.footer.component', '../admin/admin.article.component', '../admin/admin.addarticle.component', 'angular2-cookie/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../admin/admin.header.comp
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, router_2, admin_header_component_1, admin_menuleft_component_1, admin_footer_component_1, admin_article_component_1, core_2;
+    var core_1, router_1, router_2, admin_header_component_1, admin_menuleft_component_1, admin_footer_component_1, admin_article_component_1, admin_addarticle_component_1, core_2;
     var AdminIndexComponent;
     return {
         setters:[
@@ -32,6 +32,9 @@ System.register(['angular2/core', 'angular2/router', '../admin/admin.header.comp
             },
             function (admin_article_component_1_1) {
                 admin_article_component_1 = admin_article_component_1_1;
+            },
+            function (admin_addarticle_component_1_1) {
+                admin_addarticle_component_1 = admin_addarticle_component_1_1;
             },
             function (core_2_1) {
                 core_2 = core_2_1;
@@ -58,10 +61,15 @@ System.register(['angular2/core', 'angular2/router', '../admin/admin.header.comp
                     }),
                     router_1.RouteConfig([
                         {
-                            path: '/Article',
+                            path: '/article',
                             name: 'AdminArticle',
                             component: admin_article_component_1.AdminArticleComponent,
                             useAsDefault: true
+                        },
+                        {
+                            path: '/article/addnew',
+                            name: 'AdminAddArticle',
+                            component: admin_addarticle_component_1.AdminAddArticleComponent
                         },
                     ]), 
                     __metadata('design:paramtypes', [router_2.Router, core_2.CookieService])

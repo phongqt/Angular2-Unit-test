@@ -74,6 +74,15 @@ System.register(['angular2/http', 'angular2/core', '../cores/config', 'rxjs/Obse
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };
+                ArticleService.prototype.postArticle = function (data) {
+                    //let body = JSON.stringify({ data });
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+                    var options = new http_1.RequestOptions({ headers: headers });
+                    return this.http.post(config_1.PublishVar.apiUrl + 'article/', data, options)
+                        .map(function (res) { return res.json(); })
+                        .catch(this.handleError);
+                };
                 ArticleService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])

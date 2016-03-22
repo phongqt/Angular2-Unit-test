@@ -5,9 +5,11 @@ import {Article} from "../../interfaces/article";
 import {TruncatePipe} from '../../pipes/truncate.pipe';
 import {CapitalizeFirstLetterPipe} from '../../pipes/capitalize-first-letter.pipe';
 import {CapitalizePipe} from '../../pipes/capitalize.pipe'
+import {ROUTER_DIRECTIVES, RouterOutlet} from 'angular2/router';
 @Component({
     templateUrl: 'app/layout/admin/admin.article.html',
     providers: [ArticleService],
+    directives: [RouterOutlet, ROUTER_DIRECTIVES],
     pipes: [TruncatePipe, CapitalizeFirstLetterPipe, CapitalizePipe]
 })
 export class AdminArticleComponent implements OnInit{

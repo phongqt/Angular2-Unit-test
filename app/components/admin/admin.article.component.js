@@ -10,7 +10,7 @@ System.register(["angular2/core", "../../services/article.service", 'angular2/ro
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, article_service_1, router_1, truncate_pipe_1, capitalize_first_letter_pipe_1, capitalize_pipe_1;
+    var core_1, article_service_1, router_1, truncate_pipe_1, capitalize_first_letter_pipe_1, capitalize_pipe_1, router_2;
     var AdminArticleComponent;
     return {
         setters:[
@@ -22,6 +22,7 @@ System.register(["angular2/core", "../../services/article.service", 'angular2/ro
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+                router_2 = router_1_1;
             },
             function (truncate_pipe_1_1) {
                 truncate_pipe_1 = truncate_pipe_1_1;
@@ -90,6 +91,7 @@ System.register(["angular2/core", "../../services/article.service", 'angular2/ro
                     core_1.Component({
                         templateUrl: 'app/layout/admin/admin.article.html',
                         providers: [article_service_1.ArticleService],
+                        directives: [router_2.RouterOutlet, router_2.ROUTER_DIRECTIVES],
                         pipes: [truncate_pipe_1.TruncatePipe, capitalize_first_letter_pipe_1.CapitalizeFirstLetterPipe, capitalize_pipe_1.CapitalizePipe]
                     }), 
                     __metadata('design:paramtypes', [article_service_1.ArticleService, router_1.Router])

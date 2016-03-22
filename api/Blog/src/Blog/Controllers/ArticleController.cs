@@ -75,21 +75,31 @@ namespace Blog.Controllers
 
         // POST api/values
         [HttpPost]
-        public Result Post([FromBody]string title, [FromBody]string description, [FromBody]string content, [FromBody]string image)
+        public Result Post(string title, string description, string content, string image)
         {
             Result _result = new Result();
             try
-            {                
-                Article article = new Article();
-                article.Created = new DateTime();
-                article.Title = title;
-                article.Description = description;
-                article._Content = content;
-                article.Image = image;
-                dbContext.Articles.Add(article);
-                dbContext.SaveChanges();
-                _result.success = true;
-                _result.message = "Success";
+            {
+                var session = HttpContext.Session.GetObjectFromJson<User>("admin");
+                if (session != null)
+                {
+                    Article article = new Article();
+                    article.Created = new DateTime();
+                    article.Title = title;
+                    article.Description = description;
+                    article._Content = content;
+                    article.Image = image;
+                    article.UserId = session.Id;
+                    dbContext.Articles.Add(article);
+                    dbContext.SaveChanges();
+                    _result.success = true;
+                    _result.message = "Success";
+                }
+                else
+                {
+                    _result.success = false;
+                    _result.message = "forbidden";
+                }
             } 
             catch (Exception ex)
             {
