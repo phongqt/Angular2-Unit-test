@@ -35,7 +35,7 @@ export class ArticleService {
     // });
     //return Promise.resolve(Articles);
   } 
-  getArticleDetail(id: number) {
+  getArticleDetail(id: number) { 
     //   var element = Articles.map(function(x) {return x.id; }).indexOf(id);
     //   return Articles[element];
     //  return Promise.resolve(Articles).then(Article => Articles.filter(Article => Article.id === id)[0]);

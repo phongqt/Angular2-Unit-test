@@ -32,7 +32,8 @@ namespace Blog
             services.AddCaching();
             services.AddSession(o =>
             {
-                o.IdleTimeout = TimeSpan.FromSeconds(30);
+                o.IdleTimeout = TimeSpan.FromMinutes(30);
+                o.CookieName = ".Blog";
             });
             var connection = @"Server=.\sqlexpress1;Database=Blog;Trusted_Connection=True;";
 
@@ -42,19 +43,19 @@ namespace Blog
             services.AddCors(options =>
                             options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
                                                                 .AllowAnyMethod()
-                                                                .AllowAnyHeader()));
+                                                                .AllowAnyHeader().AllowCredentials()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseSession();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             app.UseIISPlatformHandler();
 
-            app.UseStaticFiles();
-            app.UseSession();
+            app.UseStaticFiles();            
             app.UseMvc();
             app.UseCors("AllowAll");
         }

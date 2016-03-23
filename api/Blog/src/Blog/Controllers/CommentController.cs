@@ -47,7 +47,7 @@ namespace Blog.Controllers
             try
             {
                 comment.ArticleId = id;
-                comment.Created = new DateTime();
+                comment.Created = DateTime.Today;
                 comment._Content = content;
                 dbContext.Comments.Add(comment);
                 dbContext.SaveChanges();

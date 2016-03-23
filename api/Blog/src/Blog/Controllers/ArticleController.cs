@@ -56,6 +56,7 @@ namespace Blog.Controllers
             Result _result = new Result();            
             try
             {
+                var tmp = HttpContext.Session.GetObjectFromJson<User>("admin");
                 //article = dbContext.Articles.FirstOrDefault(x => x.Id == id);
                 var article = (from _article in dbContext.Articles
                  join _user in dbContext.Users on _article.UserId.Value equals _user.Id
@@ -80,26 +81,26 @@ namespace Blog.Controllers
             Result _result = new Result();
             try
             {
-                var session = HttpContext.Session.GetObjectFromJson<User>("admin");
-                if (session != null)
-                {
+                //var session = HttpContext.Session.GetObjectFromJson<User>("admin");
+                //if (session != null)
+                //{
                     Article article = new Article();
-                    article.Created = new DateTime();
+                    article.Created = DateTime.Today;
                     article.Title = title;
                     article.Description = description;
                     article._Content = content;
                     article.Image = image;
-                    article.UserId = session.Id;
+                    article.UserId = 1;
                     dbContext.Articles.Add(article);
                     dbContext.SaveChanges();
                     _result.success = true;
                     _result.message = "Success";
-                }
-                else
-                {
-                    _result.success = false;
-                    _result.message = "forbidden";
-                }
+                //}
+                //else
+                //{
+                //    _result.success = false;
+                //    _result.message = "forbidden";
+                //}
             } 
             catch (Exception ex)
             {

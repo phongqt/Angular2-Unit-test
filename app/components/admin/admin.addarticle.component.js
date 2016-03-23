@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../services/article.service"], function(exports_1, context_1) {
+System.register(["angular2/core", 'angular2/router', "../../services/article.service"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,19 +10,23 @@ System.register(["angular2/core", "../../services/article.service"], function(ex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, article_service_1;
+    var core_1, router_1, article_service_1;
     var AdminAddArticleComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
             function (article_service_1_1) {
                 article_service_1 = article_service_1_1;
             }],
         execute: function() {
             AdminAddArticleComponent = (function () {
-                function AdminAddArticleComponent(_articleService) {
+                function AdminAddArticleComponent(_router, _articleService) {
+                    this._router = _router;
                     this._articleService = _articleService;
                     this.article = {};
                 }
@@ -34,10 +38,13 @@ System.register(["angular2/core", "../../services/article.service"], function(ex
                     }, 500);
                 };
                 AdminAddArticleComponent.prototype.Post = function () {
+                    var _this = this;
                     this.article._Content = $('#content')[0].value;
                     var data = 'title=' + this.article.Title + '&description=' + this.article.Description + '&image=' + this.article.Image + '&content=' + this.article._Content;
                     this._articleService.postArticle(data).subscribe(function (res) {
                         if (res.success) {
+                            var link = ['AdminArticle'];
+                            _this._router.navigate(link);
                         }
                     }, function (error) {
                         console.log(error);
@@ -48,7 +55,7 @@ System.register(["angular2/core", "../../services/article.service"], function(ex
                         templateUrl: 'app/layout/admin/admin.add.article.html',
                         providers: [article_service_1.ArticleService]
                     }), 
-                    __metadata('design:paramtypes', [article_service_1.ArticleService])
+                    __metadata('design:paramtypes', [router_1.Router, article_service_1.ArticleService])
                 ], AdminAddArticleComponent);
                 return AdminAddArticleComponent;
             }());
