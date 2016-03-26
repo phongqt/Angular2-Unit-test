@@ -6,6 +6,8 @@ using Blog.Models;
 using Microsoft.AspNet.Cors;
 using Microsoft.AspNet.Http;
 using Blog.Services;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Authorization;
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Blog.Controllers
@@ -14,10 +16,12 @@ namespace Blog.Controllers
     [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private BloggingContext dbContext = new BloggingContext();
-        public UserController(BloggingContext db)
+        public UserController(BloggingContext db, SignInManager<ApplicationUser> signInManage)
         {
             this.dbContext = db;
+            this._signInManager = signInManage;
         }
         // GET: api/values
         [HttpGet]
@@ -106,11 +110,12 @@ namespace Blog.Controllers
 
         //Login
         [HttpGet]
-        public Result Login(string username, string password)
+        public Result  Login(string username, string password)
         {
             Result _result = new Result();
             try
             {
+                var tmp = HttpContext.User;
                 User user = new User();
                 user = dbContext.Users.FirstOrDefault(x => x.UserName == username && x.Password == password);
                 if (user != null)
@@ -118,8 +123,10 @@ namespace Blog.Controllers
                     _result.success = true;
                     user.Password = null;
                     _result.data = user;
-                    _result.message = "Success";                    
-                    HttpContext.Session.SetObjectAsJson("admin", user);
+                    _result.message = "Success";
+                    //HttpContext.Session.SetObjectAsJson("admin", user);
+                    var result = _signInManager.PasswordSignInAsync(username, password, true, lockoutOnFailure: false);
+                    
                 }
                 else
                 {

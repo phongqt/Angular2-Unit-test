@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Data.Entity;
 using Blog.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace Blog
 {
     public class Startup
@@ -37,9 +39,14 @@ namespace Blog
             });
             var connection = @"Server=.\sqlexpress1;Database=Blog;Trusted_Connection=True;";
 
+            // Add EF services to the services container.
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
+                .AddDbContext<BloggingContext>(options =>options.UseSqlServer(connection));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<BloggingContext>()
+                .AddDefaultTokenProviders();
             services.AddCors(options =>
                             options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
                                                                 .AllowAnyMethod()
