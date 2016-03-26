@@ -50,6 +50,18 @@ System.register(["angular2/core", 'angular2/router', "../../services/article.ser
                         console.log(error);
                     });
                 };
+                AdminAddArticleComponent.prototype.fileChangeEvent = function (fileInput) {
+                    var _this = this;
+                    this.fileUpload = fileInput.target.files;
+                    this._articleService.uploadFile(fileInput).subscribe(function (res) {
+                        if (res.success) {
+                            var link = ['AdminArticle'];
+                            _this._router.navigate(link);
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
+                };
                 AdminAddArticleComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/layout/admin/admin.add.article.html',

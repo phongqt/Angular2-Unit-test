@@ -56,10 +56,20 @@ export class ArticleService {
   postArticle(data:string) {
     //let body = JSON.stringify({ data });
     var headers = new Headers();
-  headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
     let options = new RequestOptions({ headers: headers });
     return this.http.post(PublishVar.apiUrl + 'article/',data, options)
         .map(res => res.json())
         .catch(this.handleError);   
+  }
+  uploadFile(file) {
+      let formData:any = new FormData();
+      formData.append("files", file);
+      var headers = new Headers();
+      headers.append('Content-Type', 'multipart/form-data');
+      let options = new RequestOptions({ headers: headers });
+      return this.http.post(PublishVar.apiUrl + 'file', formData, { headers: headers })
+        .map(res => res.json()) 
+        .catch(this.handleError);  
   }
 }

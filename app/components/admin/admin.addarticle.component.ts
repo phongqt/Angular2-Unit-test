@@ -8,13 +8,13 @@ import {Article} from "../../interfaces/article";
 })
 export class AdminAddArticleComponent implements OnInit{
     private article:Article = <Article>{};
-    
+    private fileUpload:{};
     constructor(private _router: Router, private _articleService: ArticleService) {}      
     ngOnInit() {
         setTimeout( function() {
             tinymce.init({
                 selector: '#content'
-            });
+            }); 
         }, 500);
     }
     Post() {
@@ -28,6 +28,18 @@ export class AdminAddArticleComponent implements OnInit{
         },
         error =>  {            
             console.log(<any>error);
-        });      
+        });       
+    }
+    fileChangeEvent(fileInput: any) {
+        this.fileUpload = <File> fileInput.target.files;
+        this._articleService.uploadFile(fileInput).subscribe(res => {
+            if(res.success) {      
+                let link = ['AdminArticle'];
+                this._router.navigate(link);
+            } 
+        },
+        error =>  {            
+            console.log(<any>error);
+        });     
     }
 }
