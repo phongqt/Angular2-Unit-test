@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/router', '../admin/admin.header.component', '../admin/admin.menuleft.component', '../admin/admin.footer.component', '../admin/admin.article.component', '../admin/admin.addarticle.component', 'angular2-cookie/core'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../admin/admin.header.component', '../admin/admin.menuleft.component', '../admin/admin.footer.component', '../admin/admin.article.component', '../admin/admin.addarticle.component', 'angular2-cookie/core'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73,7 +75,7 @@ System.register(['angular2/core', 'angular2/router', '../admin/admin.header.comp
                     __metadata('design:paramtypes', [router_2.Router, core_2.CookieService])
                 ], AdminIndexComponent);
                 return AdminIndexComponent;
-            })();
+            }());
             exports_1("AdminIndexComponent", AdminIndexComponent);
         }
     }
