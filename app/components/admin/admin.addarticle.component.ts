@@ -11,14 +11,14 @@ export class AdminAddArticleComponent implements OnInit{
     private fileUpload:{};
     constructor(private _router: Router, private _articleService: ArticleService) {}      
     ngOnInit() {
-        setTimeout( function() {
-            tinymce.init({
-                selector: '#content'
-            }); 
-        }, 500);
+        // setTimeout( function() {
+        //     tinymce.init({
+        //         selector: '#content'
+        //     }); 
+        // }, 500);
     }
     Post() {
-        this.article._Content = $('#content')[0].value;
+        this.article._Content = 'abc';// $('#content')[0].value;
         var data = 'title=' + this.article.Title +'&description='   + this.article.Description + '&image=' + this.article.Image + '&content=' + this.article._Content; 
         this._articleService.postArticle(data).subscribe(res => {
             if(res.success) {      

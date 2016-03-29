@@ -9,9 +9,9 @@ __karma__.loaded = function() {};
 
 System.config({
     packages: {
-        'base/dist': {
+        'base/app': {
             defaultExtension: false,
-            format: 'cjs',
+            format: 'register',
             map: Object.keys(window.__karma__.files).filter(onlyAppFiles).reduce(createPathRecords, {})
         }
     }
@@ -26,15 +26,13 @@ function createPathRecords(pathsMapping, appPath) {
     // creates local module name mapping to global path with karma's fingerprint in path, e.g.:
     // './vg-player/vg-player':
     // '/base/dist/vg-player/vg-player.js?f4523daf879cfb7310ef6242682ccf10b2041b3e'
-    var pathParts = appPath.split('/');
-    var moduleName = './' + pathParts.slice(Math.max(pathParts.length - 2, 1)).join('/');
-    moduleName = moduleName.replace(/\.js$/, '');
-    pathsMapping[moduleName] = appPath + '?' + window.__karma__.files[appPath];
+    var moduleName = appPath.replace(/^\/base\/app\//, './').replace(/\.js$/, '');
+    pathsMapping[moduleName] = appPath + '?' + window.__karma__.files[appPath]
     return pathsMapping;
 }
 
 function onlyAppFiles(filePath) {
-    return /\/base\/dist\/(?!.*\.spec\.js$).*\.js$/.test(filePath);
+    return /\/base\/app\/(?!.*\.spec\.js$).*\.js$/.test(filePath);
 }
 
 function onlySpecFiles(path) {

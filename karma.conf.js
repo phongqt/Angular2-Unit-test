@@ -7,25 +7,29 @@ module.exports = function(config) {
 
         files: [
             // paths loaded by Karma
+            {pattern: 'node_modules/jquery/dist/jquery.min.js', included: true, watched: true},
             {pattern: 'node_modules/angular2/bundles/angular2-polyfills.js', included: true, watched: true},
             {pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: true},
             {pattern: 'node_modules/rxjs/bundles/Rx.js', included: true, watched: true},
             {pattern: 'node_modules/angular2/bundles/angular2.dev.js', included: true, watched: true},
             {pattern: 'node_modules/angular2/bundles/testing.dev.js', included: true, watched: true},
+            {pattern: 'node_modules/angular2-cookie/bundles/angular2-cookie.min.js', included: true, watched: true},
+            {pattern: 'node_modules/tinymce/tinymce.min.js', included: true, watched: true},
+            {pattern: 'node_modules/angular2/bundles/http.dev.js', included: true, watched: true},
             {pattern: 'karma-test-shim.js', included: true, watched: true},
 
             // paths loaded via module imports
-            {pattern: 'dist/**/*.js', included: false, watched: true},
+            {pattern: 'app/**/*.js', included: false, watched: true},
 
             // paths to support debugging with source maps in dev tools
-            {pattern: 'src/**/*.ts', included: false, watched: false},
-            {pattern: 'dist/**/*.js.map', included: false, watched: false}
+            {pattern: 'app/**/*.ts', included: false, watched: false},
+            {pattern: 'app/**/*.js.map', included: false, watched: false}
         ],
 
         // proxied base paths
         proxies: {
             // required for component assests fetched by Angular's compiler
-            '/src/': '/base/src/'
+            '/app/': '/base/app/'
         },
 
         port: 9876,
@@ -51,7 +55,7 @@ module.exports = function(config) {
         // Source files that you wanna generate coverage for.
         // Do not include tests or libraries (these files will be instrumented by Istanbul)
         preprocessors: {
-            'dist/**/!(*spec).js': ['coverage']
+            'app/**/!(*spec).js': ['coverage']
         },
 
         coverageReporter: {

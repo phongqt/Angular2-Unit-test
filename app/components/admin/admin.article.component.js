@@ -1,6 +1,4 @@
-System.register(["angular2/core", "../../services/article.service", 'angular2/router', '../../pipes/truncate.pipe', '../../pipes/capitalize-first-letter.pipe', '../../pipes/capitalize.pipe'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(["angular2/core", "../../services/article.service", 'angular2/router', '../../pipes/truncate.pipe', '../../pipes/capitalize-first-letter.pipe', '../../pipes/capitalize.pipe'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97,7 +95,7 @@ System.register(["angular2/core", "../../services/article.service", 'angular2/ro
                     __metadata('design:paramtypes', [article_service_1.ArticleService, router_1.Router])
                 ], AdminArticleComponent);
                 return AdminArticleComponent;
-            }());
+            })();
             exports_1("AdminArticleComponent", AdminArticleComponent);
         }
     }

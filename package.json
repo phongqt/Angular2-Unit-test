@@ -6,6 +6,7 @@
     "tsc": "tsc",
     "build": "rm -rf dist && tsc -p src",
     "test": "karma start karma.conf.js",
+    "karmatest": "concurrent \"npm run tsc\" \"karma start karma.conf.js\" ",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
     "typings": "typings",

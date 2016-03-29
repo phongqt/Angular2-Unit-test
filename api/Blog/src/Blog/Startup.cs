@@ -37,7 +37,7 @@ namespace Blog
                 o.IdleTimeout = TimeSpan.FromMinutes(30);
                 o.CookieName = ".Blog";
             });
-            var connection = @"Server=.\sqlexpress1;Database=Blog;Trusted_Connection=True;";
+            var connection = @"Server=DESKTOP-0V3KIGE\SQLEXPRESS;Database=Blog;Trusted_Connection=True;";
 
             // Add EF services to the services container.
             services.AddEntityFramework()

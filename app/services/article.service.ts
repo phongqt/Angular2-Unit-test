@@ -1,5 +1,5 @@
 import {Http, Headers, Response, RequestOptions} from 'angular2/http';
-import {Articles} from './mock-article';
+// import {Articles} from './mock-article';
 import {Article} from '../interfaces/article';
 import {Injectable} from 'angular2/core';
 import {PublishVar} from '../cores/config';
